@@ -411,6 +411,7 @@ export default class LayoutManager extends EventEmitter {
             config = {
                 type: 'stack',
                 width: config.width,
+                minWidth: config.minWidth,
                 height: config.height,
                 content: [config]
             };

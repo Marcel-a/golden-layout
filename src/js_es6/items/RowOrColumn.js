@@ -384,7 +384,8 @@ export default class RowOrColumn extends AbstractContentItem {
             totalAssigned = 0,
             additionalPixel,
             itemSize,
-            itemSizes = [];
+            itemSizes = [],
+            minSizes = [];
 
         if (this._isColumn) {
             totalHeight -= totalSplitterSize;
@@ -411,12 +412,14 @@ export default class RowOrColumn extends AbstractContentItem {
 
             totalAssigned += itemSize;
             itemSizes.push(itemSize);
+            minSizes.push(this.contentItems[i].config.minWidth);
         }
 
         additionalPixel = Math.floor((this._isColumn ? totalHeight : totalWidth) - totalAssigned);
 
         return {
             itemSizes: itemSizes,
+            minSizes: minSizes,
             additionalPixel: additionalPixel,
             totalWidth: totalWidth,
             totalHeight: totalHeight
@@ -533,14 +536,16 @@ export default class RowOrColumn extends AbstractContentItem {
             contentItem = this.contentItems[i];
             itemSize = sizeData.itemSizes[i];
 
-            if (itemSize < minItemWidth) {
-                totalUnderMin += minItemWidth - itemSize;
+            var minWidth = sizeData.minSizes[i] || minItemWidth;
+
+            if (itemSize < minWidth) {
+                totalUnderMin += minWidth - itemSize;
                 entry = {
-                    width: minItemWidth
+                    width: minWidth
                 };
 
             } else {
-                totalOverMin += itemSize - minItemWidth;
+                totalOverMin += itemSize - minWidth;
                 entry = {
                     width: itemSize
                 };

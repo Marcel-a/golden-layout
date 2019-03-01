@@ -131,6 +131,15 @@ window.addEventListener('load', () => {
                         componentState: { bg: 'golden_layout_spiral.png' }
                       },
                       {
+                        title: 'Layout 100px wide',
+                        header: { show: 'left', popout: false },
+                        type: 'component',
+                        width: 0,
+                        minWidth: 100,
+                        componentName: 'html',
+                        componentState: { bg: 'golden_layout_text.png' }
+                      },
+                      {
                         title: 'Layout',
                         header: { show: 'left', popout: false },
                         type: 'component',
